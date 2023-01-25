@@ -8,7 +8,8 @@ import altair as alt
 from PIL import Image
 
 desc_temp = """
-            Họ tên: Lê Cảnh Cường
+            Thông tin về bản thân
+            - Họ tên: Lê Cảnh Cường
             - SĐT: 0387688878
             - Mail: strongpower9x@gmail.com
             """
@@ -21,18 +22,18 @@ inf = """
 
 """
 
-left_column, right_column = st.columns([2,3])
-with left_column:
-    img = Image.open("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg")
-    st.image(img,use_column_width = True)
+# left_column, right_column = st.columns([2,3])
+# with left_column:
+#     img = Image.open("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg")
+#     st.image(img,use_column_width = True)
     
 
-# with mid_column:
-#     pass
+# # with mid_column:
+# #     pass
 
-with right_column:
-    st.subheader(desc_temp)
-
+# with right_column:
+#     st.subheader(desc_temp)
+st.subheader(desc_temp)   
 st.subheader(inf)    
 
 
