@@ -6,22 +6,8 @@ import streamlit.components.v1 as stc
 import plotly_express as px
 import altair as alt
 
-
-df_jan =pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_January_2019.csv")
-df_feb =pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_February_2019.csv")
-df_mar = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_March_2019.csv")
-df_apr = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_April_2019.csv")
-df_may= pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_May_2019.csv")
-df_jun = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_June_2019.csv")
-df_jul = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_July_2019.csv")
-df_aug = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_August_2019.csv")
-df_sep = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_September_2019.csv")
-df_oct= pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_October_2019.csv")
-df_nov = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_November_2019.csv")
-df_dec = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_December_2019.csv")
-
-df_all = pd.concat([df_jan,df_feb,df_mar,df_apr,df_may,df_jun,df_jul,df_aug,df_sep,df_oct,df_nov,df_dec])
-df_all['Month'] = df_all['Order Date'].str.slice(start=0, stop =2, step =1)
+# df_all = pd.read_csv("https://raw.githubusercontent.com/lecuong9x/Sale-Analysist/main/all_data.csv")
+# df_all['Month'] = df_all['Order Date'].str.slice(start=0, stop =2, step =1)
 
 
 html_temp = """
@@ -31,17 +17,18 @@ html_temp = """
         </div>
 """
 # remove nan 
-df_all1 = df_all.dropna(how="all")
-df_all2 = df_all1[df_all1['Month'] != 'Or'] # loai gia tri Or
+# df_all1 = df_all.dropna(how="all")
+# df_all2 = df_all1[df_all1['Month'] != 'Or'] # loai gia tri Or
 
 # tách cột city từ cột purchase address
-address_to_city = lambda address:address.split(',')[1]
-df_all2['City'] = df_all2['Purchase Address'].apply(address_to_city)
-df_all2['Quantity Ordered'] = pd.to_numeric(df_all2['Quantity Ordered'], downcast = 'float')
-df_all2['Price Each'] = pd.to_numeric(df_all2['Price Each'], downcast = 'float')
-df_all2['Sales'] = df_all2['Quantity Ordered'] *df_all2['Price Each']
-df_all2['Order Date'] = pd.to_datetime(df_all2['Order Date'],errors= "coerce")
-df_all2 = df_all2.assign(hour = df_all2["Order Date"].dt.hour)
+# address_to_city = lambda address:address.split(',')[1]
+# df_all2['City'] = df_all2['Purchase Address'].apply(address_to_city)
+# df_all2['Quantity Ordered'] = pd.to_numeric(df_all2['Quantity Ordered'], downcast = 'float')
+# df_all2['Price Each'] = pd.to_numeric(df_all2['Price Each'], downcast = 'float')
+# df_all2['Sales'] = df_all2['Quantity Ordered'] *df_all2['Price Each']
+# df_all2['Order Date'] = pd.to_datetime(df_all2['Order Date'],errors= "coerce")
+# df_all2 = df_all2.assign(hour = df_all2["Order Date"].dt.hour)
+df_all2 = pd.read_csv("https://raw.githubusercontent.com/lecuong9x/Sale-Analysist/main/sale.csv")
 
 stc.html(html_temp)
 
@@ -60,7 +47,7 @@ Month = st.sidebar.multiselect(
 )
 
 # https://www.youtube.com/watch?v=Sb0A9i6d320&list=PLHgX2IExbFovFg4DI0_b3EWyIGk-oGRzq
-df_selection = df_all2.query("City == @City & Month == @Month" )
+df_selection = df_all2.query("City == @City") #& Month == @Month"
 
 
 #---- main page
@@ -68,6 +55,7 @@ st.title(":bar_chart: Sales Dashboard")
 st.markdown("##")
 
 #top 
+
 total_sales = int(df_selection["Sales"].sum())
 average_sales = round(df_selection["Sales"].mean(),1)
 
@@ -101,6 +89,7 @@ st.success("Doanh số theo thành phố")
 sale_by_city = (
     df_selection.groupby("City").sum().sort_values("Sales", ascending=True)
 )
+
 fig_city_salses = px.bar(
     sale_by_city,
     x = "Sales",
@@ -140,7 +129,7 @@ st.success("Thời gian bán hàng được nhiều")
 
 
 sale_by_hour = (
-    df_selection.groupby("hour")
+    df_selection.groupby("Hours")
     .agg({"Sales":"sum"})
 )
 

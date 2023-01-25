@@ -3,21 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 import streamlit.components.v1 as stc
+from PIL import Image
 
-df_jan =pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_January_2019.csv")
-df_feb =pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_February_2019.csv")
-df_mar = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_March_2019.csv")
-df_apr = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_April_2019.csv")
-df_may= pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_May_2019.csv")
-df_jun = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_June_2019.csv")
-df_jul = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_July_2019.csv")
-df_aug = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_August_2019.csv")
-df_sep = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_September_2019.csv")
-df_oct= pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_October_2019.csv")
-df_nov = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_November_2019.csv")
-df_dec = pd.read_csv("https://raw.githubusercontent.com/kfrawee/SalesAnalysis/master/data/Sales_December_2019.csv")
 
-df_all = pd.concat([df_jan,df_feb,df_mar,df_apr,df_may,df_jun,df_jul,df_aug,df_sep,df_oct,df_nov,df_dec])
+df_all = pd.read_csv("https://raw.githubusercontent.com/lecuong9x/Sale-Analysist/main/all_data.csv")
 df_all['Month'] = df_all['Order Date'].str.slice(start=0, stop =2, step =1)
 
 html_temp = """
@@ -42,8 +31,6 @@ desc_temp = """
             - Tháng tốt nhất để bán hàng là gì? Tháng đó kiếm được bao nhiêu?
             - Thành phố nào bán được nhiều sản phẩm nhất?
             - Chúng ta nên hiển thị quảng cáo vào thời gian nào để tối đa hóa khả năng mua sản phẩm của khách hàng?
-            - Những sản phẩm nào thường được bán cùng nhau nhất?
-            - Sản phẩm nào được bán nhiều nhất? Tại sao bạn nghĩ rằng nó được bán nhiều nhất?   
             """
 int_temp = """
             ###
