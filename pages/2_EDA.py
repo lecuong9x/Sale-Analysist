@@ -73,11 +73,11 @@ average_sales = round(df_selection["Sales"].mean(),1)
 
 left_column, right_column = st.columns(2)
 with left_column:
-    st.subheader("Tổng Doanh Thu 12 tháng:")
+    st.subheader("Tổng Doanh Thu:")
     st.success(f'US $ {total_sales:,}')
 
 with right_column:
-    st.subheader("TB Doanh Thu 12 tháng:")
+    st.subheader("Doanh thu trung bình:")
     st.success(f'US $ {average_sales:,}')
 
 st.markdown("____")
@@ -146,3 +146,5 @@ sale_by_hour = (
 
 st.line_chart(sale_by_hour)
 
+sale_product = df_selection.groupby('Product').sum()['Quantity Ordered']
+prices =df_selection.groupby('Product').mean()['Price Each']
