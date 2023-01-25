@@ -23,7 +23,7 @@ inf = """
 
 left_column, right_column = st.columns([2,3])
 with left_column:
-    img = Image.open("C:/Users/HELLO/Streamlit/Multi/image1.jpg")
+    img = Image.open("https://github.com/lecuong9x/Sale-Analysist/blob/main/image1.jpg")
     st.image(img,use_column_width = True)
     
 
