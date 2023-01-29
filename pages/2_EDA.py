@@ -105,7 +105,7 @@ sale_by_hour = (
     df_selection.groupby("Hours")
     .agg({"Sales":"sum"})
 )
-
+st.success("Thời điểm trong ngày bán hàng được nhiều")
 st.line_chart(sale_by_hour,use_container_width=True)
 
 sale_product = df_selection.groupby('Product').sum()['Quantity Ordered']
@@ -118,4 +118,4 @@ sale_by_month = (
 #st.write(sale_by_month)
 st.line_chart(sale_by_month,use_container_width=True)
 
-st.success("Thời điểm trong ngày bán hàng được nhiều")
+
